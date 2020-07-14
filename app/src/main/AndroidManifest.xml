@@ -6,17 +6,24 @@
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
+        android:name=".data.App"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".EditNoteActivity"></activity>
-        <activity android:name=".MainActivity">
+        <activity android:name=".note.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".activityToDoList.ToDoListActivity" />
+        <activity android:name=".note.EditNoteActivity" />
+        <activity
+            android:name=".activityToDoList.taskDetail.TaskDetailsActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+
+        <receiver android:name=".activityToDoList.taskDetail.NotificationPublisher" />
     </application>
 
 </manifest>

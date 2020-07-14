@@ -1,18 +1,23 @@
-package com.example.androidsummerproject20;
+package com.example.androidsummerproject20.note;
 
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.androidsummerproject20.R;
+import com.example.androidsummerproject20.data.NotesDB;
+import com.example.androidsummerproject20.data.NotesDao;
 import com.example.androidsummerproject20.models.Note;
-import com.example.androidsummerproject20.notesDB.NotesDB;
-import com.example.androidsummerproject20.notesDB.NotesDao;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
@@ -40,6 +45,24 @@ public class MainActivity extends AppCompatActivity implements OnItemClickListen
             }
         });
         dao = NotesDB.getInstance(this).notesDao();
+
+        BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.note:
+                        break;
+                    case R.id.todo:
+
+                        break;
+                    case R.id.trash:
+                        Toast.makeText(MainActivity.this, "Trash", Toast.LENGTH_SHORT).show();
+                        break;
+                }
+                return true;
+            }
+        });
 
     }
 
