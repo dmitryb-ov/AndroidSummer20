@@ -94,7 +94,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.NoteViewHolder
     @Override
     public NoteViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         return new NoteViewHolder(
-                LayoutInflater.from(parent.getContext()).inflate(R.layout.item_note_list, parent, false));
+                LayoutInflater.from(parent.getContext()).inflate(R.layout.item_todo_list, parent, false));
     }
 
     //привязка к конкретной заметки ViewHolder'a
@@ -139,7 +139,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.NoteViewHolder
         public NoteViewHolder(@NonNull final View itemView) {
             super(itemView);
 
-            noteText = itemView.findViewById(R.id.note_text);
+            noteText = itemView.findViewById(R.id.note_task);
             completed = itemView.findViewById(R.id.completed);
             delete = itemView.findViewById(R.id.delete);
 

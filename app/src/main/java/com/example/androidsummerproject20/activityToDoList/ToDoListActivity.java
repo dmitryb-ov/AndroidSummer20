@@ -1,9 +1,14 @@
 package com.example.androidsummerproject20.activityToDoList;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.DividerItemDecoration;
@@ -13,20 +18,23 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.androidsummerproject20.R;
 import com.example.androidsummerproject20.activityToDoList.taskDetail.TaskDetailsActivity;
 import com.example.androidsummerproject20.models.Task;
+import com.example.androidsummerproject20.note.MainActivity;
+import com.example.androidsummerproject20.note.NotesTrashActivity;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.List;
 
 //класс запуска основго активити для "списка дел"
 public class ToDoListActivity extends AppCompatActivity {
-
+    private Toolbar toolbar;
     private RecyclerView recyclerView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_todolist);
-
+        toolbar = findViewById(R.id.tool_bar);
+        setSupportActionBar(toolbar);
         recyclerView = findViewById(R.id.list);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, RecyclerView.VERTICAL, false);
         recyclerView.setLayoutManager(linearLayoutManager);
@@ -54,5 +62,30 @@ public class ToDoListActivity extends AppCompatActivity {
                 taskAdapter.setItems(tasks);
             }
         });
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.bottom_nav_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.note:
+                startActivity(new Intent(this, MainActivity.class));
+                Toast.makeText(this, "Notes", Toast.LENGTH_SHORT).show();
+                return true;
+
+            case R.id.todo:
+                Toast.makeText(this, "ToDoList", Toast.LENGTH_SHORT).show();
+                return true;
+            case R.id.trash:
+                startActivity(new Intent(this, NotesTrashActivity.class));
+            default:
+                return super.onOptionsItemSelected(item);
+
+        }
     }
 }

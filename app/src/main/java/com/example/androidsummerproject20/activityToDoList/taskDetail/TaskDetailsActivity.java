@@ -28,7 +28,6 @@ import androidx.appcompat.widget.Toolbar;
 import com.example.androidsummerproject20.R;
 import com.example.androidsummerproject20.data.App;
 import com.example.androidsummerproject20.models.Task;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -66,7 +65,7 @@ public class TaskDetailsActivity extends AppCompatActivity {
         //далее с этим активити можно уже работать
         setContentView(R.layout.activity_note_details);
 
-        Toolbar toolbar = findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.tool_bar);
         setSupportActionBar(toolbar);
         //добавляем кнопку назад
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -95,23 +94,6 @@ public class TaskDetailsActivity extends AppCompatActivity {
             task = new Task();
         }
 
-        BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
-        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                switch (item.getItemId()) {
-                    case R.id.note:
-
-                        break;
-                    case R.id.todo:
-                        break;
-                    case R.id.trash:
-                        Toast.makeText(TaskDetailsActivity.this, "Trash", Toast.LENGTH_SHORT).show();
-                        break;
-                }
-                return true;
-            }
-        });
     }
 
     //для кнопки сохранения в меню
