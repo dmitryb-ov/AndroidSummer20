@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/note"
+        android:enabled="true"
+        android:icon="@drawable/ic_baseline_bookmarks_24"
+        android:title="Заметки"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/todo"
+        android:enabled="true"
+        android:icon="@drawable/ic_baseline_today_24"
+        android:title="ToDo"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/trash"
+        android:enabled="true"
+        android:icon="@drawable/ic_baseline_delete_outline_24"
+        android:title="Корзина"
+        app:showAsAction="ifRoom" />
+</menu>

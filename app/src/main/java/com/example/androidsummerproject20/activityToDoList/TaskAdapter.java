@@ -14,30 +14,30 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.SortedList;
 
 import com.example.androidsummerproject20.R;
-import com.example.androidsummerproject20.activityToDoList.noteDetail.NoteDetailsActivity;
+import com.example.androidsummerproject20.activityToDoList.taskDetail.TaskDetailsActivity;
 import com.example.androidsummerproject20.data.App;
-import com.example.androidsummerproject20.notes.Note;
+import com.example.androidsummerproject20.models.Task;
 
 import java.util.List;
 
-public class Adapter extends RecyclerView.Adapter<Adapter.NoteViewHolder> {
+public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.NoteViewHolder> {
 
     //SortedList(работает на основе рефлексии)
     //предназначен для того, чтобы автоматически определять изменения внутри себя
     //и выдавать соответствующие команды, что в нём обновилось на RecicleView, который
     //в свою очередь будем понимать какие именно элементы изменились и как их теперь
     //отображать
-    private SortedList<Note> sortedList;
+    private SortedList<Task> sortedList;
 
-    public Adapter() {
+    public TaskAdapter() {
 
-        sortedList = new SortedList<>(Note.class, new SortedList.Callback<Note>() {
+        sortedList = new SortedList<>(Task.class, new SortedList.Callback<Task>() {
             //сортировка элементов отображения(заметок)
             //сначала отображается несделанные дела, потом сделанные
             //при этом все сделанные/не сделанные дела между собой
             //сортируются по дате создания/редактирования
             @Override
-            public int compare(Note o1, Note o2) {
+            public int compare(Task o1, Task o2) {
                 if (!o2.active && o1.active) {
                     return 1;
                 }
@@ -57,7 +57,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.NoteViewHolder> {
             //если два элемента(заметки) полностью равны, то есть не только id равны, но
             //и их содержимое
             @Override
-            public boolean areContentsTheSame(Note oldItem, Note newItem) {
+            public boolean areContentsTheSame(Task oldItem, Task newItem) {
                 return oldItem.equals(newItem);
             }
 
@@ -65,7 +65,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.NoteViewHolder> {
             //тот же самый элемент(но после обновления содержимого заметки)
             //возвращаем сравнение по id
             @Override
-            public boolean areItemsTheSame(Note item1, Note item2) {
+            public boolean areItemsTheSame(Task item1, Task item2) {
                 return item1.id == item2.id;
             }
 
@@ -113,11 +113,11 @@ public class Adapter extends RecyclerView.Adapter<Adapter.NoteViewHolder> {
     //добавление, а именно замена новых заметок
     //передаём новый список(изменённый) заметок, который мы хотим, чтобы
     //отобразился в Adaptor
-    public void setItems(List<Note> notes) {
+    public void setItems(List<Task> tasks) {
         //SortedList сравнит содержимое старого листа и нового, найдёт разницу
         //и применив свои функции добавления, изменения и перемещения заметок,
         //выдаст новый список со всеми нужными отображениями.
-        sortedList.replaceAll(notes);
+        sortedList.replaceAll(tasks);
     }
 
     static class NoteViewHolder extends RecyclerView.ViewHolder {
@@ -130,7 +130,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.NoteViewHolder> {
         View delete;
 
         //заметка, которая в текущий момент отображается
-        Note note;
+        Task task;
 
         //флаг для "зачёркнутости" заметки
         boolean silentUpdate;
@@ -147,7 +147,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.NoteViewHolder> {
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    NoteDetailsActivity.start((Activity) itemView.getContext(), note);
+                    TaskDetailsActivity.start((Activity) itemView.getContext(), task);
                 }
             });
 
@@ -156,7 +156,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.NoteViewHolder> {
                 @Override
                 public void onClick(View view) {
                     //удаляем заметку в базе данных
-                    App.getInstance().getNoteDao().delete(note);
+                    App.getInstance().getTaskDao().delete(task);
                 }
             });
 
@@ -166,8 +166,8 @@ public class Adapter extends RecyclerView.Adapter<Adapter.NoteViewHolder> {
                 public void onCheckedChanged(CompoundButton compoundButton, boolean checked) {
                     //обновляем заметку, необходимо сохранить изменение в заметке
                     if (!silentUpdate) {
-                        note.active = checked;
-                        App.getInstance().getNoteDao().update(note);
+                        task.active = checked;
+                        App.getInstance().getTaskDao().update(task);
                     }
                     //обновляем показатель зачёркнутости строки
                     //то есть зачёркнутость на незачёркнутость
@@ -179,16 +179,16 @@ public class Adapter extends RecyclerView.Adapter<Adapter.NoteViewHolder> {
         }
 
         //метод, который отображает значение полей заметки на наши view
-        public void bind(Note note) {
-            this.note = note;
+        public void bind(Task task) {
+            this.task = task;
 
-            noteText.setText(note.text);
+            noteText.setText(task.text);
             //вызов метода отображения зачёркнутости
             updateStrokeOut();
 
             silentUpdate = true;
             //задаём значение
-            completed.setChecked(note.active);
+            completed.setChecked(task.active);
             //наш флаг становится false
             silentUpdate = false;
         }
@@ -197,7 +197,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.NoteViewHolder> {
         //то есть при нажатии на кнопку "выполнено" отображается зачёркивание
         private void updateStrokeOut() {
             //если выполнена
-            if (note.active) {
+            if (task.active) {
                 //операция для установки нужных флагов с двоичной операцией(отображение такое)
                 noteText.setPaintFlags(noteText.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
             } else {

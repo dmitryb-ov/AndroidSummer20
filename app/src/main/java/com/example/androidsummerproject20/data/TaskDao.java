@@ -8,38 +8,38 @@ import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 import androidx.room.Update;
 
-import com.example.androidsummerproject20.notes.Note;
+import com.example.androidsummerproject20.models.Task;
 
 import java.util.List;
 
 @Dao
-public interface NoteDao {
+public interface TaskDao {
 
     //возвращает список
-    @Query("SELECT * FROM Note")
-    List<Note> getAll();
+    @Query("SELECT * FROM Task")
+    List<Task> getAll();
 
     //каждый раз когда заметки будут меняться, ливдата будет обновлять данные
-    @Query("SELECT * FROM Note")
-    LiveData<List<Note>> getAllLiveData();
+    @Query("SELECT * FROM Task")
+    LiveData<List<Task>> getAllLiveData();
 
     //":noteIds" - означает автоматическую подстановку с таким именем
 //    @Query("SELECT * FROM Note WHERE id IN (:noteIds)")
 //    List<Note> loadAllByIds(int[] noteIds);
 
     //выборка по id
-    @Query("SELECT * FROM Note WHERE id = :id LIMIT 1")
-    Note findById(int id);
+    @Query("SELECT * FROM Task WHERE id = :id LIMIT 1")
+    Task findById(int id);
 
     //вставка
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void insert(Note note);
+    void insert(Task task);
 
     //обновление
     @Update
-    void update(Note note);
+    void update(Task task);
 
     //удаление
     @Delete
-    void delete(Note note);
+    void delete(Task task);
 }

@@ -6,7 +6,7 @@ import androidx.room.Room;
 
 public class App extends Application {
     private AppDataBase database; //база данных
-    private NoteDao noteDao; //
+    private TaskDao taskDao; //
 
     private static App instance;
 
@@ -29,7 +29,7 @@ public class App extends Application {
 
         //data access object - то есть с помощью этого объекта мы получаем доступ к данным
         //нашего приложения
-        noteDao = database.noteDao();
+        taskDao = database.noteDao();
     }
 
     public AppDataBase getDatabase() {
@@ -40,11 +40,11 @@ public class App extends Application {
         this.database = database;
     }
 
-    public NoteDao getNoteDao() {
-        return noteDao;
+    public TaskDao getTaskDao() {
+        return taskDao;
     }
 
-    public void setNoteDao(NoteDao noteDao) {
-        this.noteDao = noteDao;
+    public void setTaskDao(TaskDao taskDao) {
+        this.taskDao = taskDao;
     }
 }

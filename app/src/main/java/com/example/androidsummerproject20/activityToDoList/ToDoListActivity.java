@@ -11,8 +11,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.androidsummerproject20.R;
-import com.example.androidsummerproject20.activityToDoList.noteDetail.NoteDetailsActivity;
-import com.example.androidsummerproject20.notes.Note;
+import com.example.androidsummerproject20.activityToDoList.taskDetail.TaskDetailsActivity;
+import com.example.androidsummerproject20.models.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.List;
@@ -32,26 +32,26 @@ public class ToDoListActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
 
-        final Adapter adapter = new Adapter();
-        recyclerView.setAdapter(adapter);
+        final TaskAdapter taskAdapter = new TaskAdapter();
+        recyclerView.setAdapter(taskAdapter);
 
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 //запуск активи через метод, который мы уже создали заранее(для запуска активити)
-                NoteDetailsActivity.start(ToDoListActivity.this, null);
+                TaskDetailsActivity.start(ToDoListActivity.this, null);
             }
         });
 
         //ViewModelProviders - позволяет получить экземпляр класса ViewModel
         MainViewModel mainViewModel = ViewModelProviders.of(this).get(MainViewModel.class);
         //отписываемся, когда активити умирает, то есть отключаемся
-        mainViewModel.getNoteLiveData().observe(this, new Observer<List<Note>>() {
+        mainViewModel.getNoteLiveData().observe(this, new Observer<List<Task>>() {
             @Override
             //будет вызван метод, когда поменяется наша таблица с заметками
-            public void onChanged(List<Note> notes) {
-                adapter.setItems(notes);
+            public void onChanged(List<Task> tasks) {
+                taskAdapter.setItems(tasks);
             }
         });
     }

@@ -1,4 +1,4 @@
-package com.example.androidsummerproject20.notes;
+package com.example.androidsummerproject20.models;
 
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -11,7 +11,7 @@ import java.util.Objects;
 
 //интерфейс Parcelabe для того, чтобы передавать Note между активити(serializable)
 @Entity
-public class Note implements Parcelable {
+public class Task implements Parcelable {
 
     @PrimaryKey(autoGenerate = true)  //авто-генерация уникального ключа
     //при добавлении нового элемента присвоется следующее по порядку уник значение
@@ -27,25 +27,25 @@ public class Note implements Parcelable {
     @ColumnInfo(name = "active")
     public boolean active; //сделано или не сделано
 
-    public Note() {
+    public Task() {
     }
 
-    protected Note(Parcel in) {
+    protected Task(Parcel in) {
         id = in.readInt();
         text = in.readString();
         time = in.readLong();
         active = in.readByte() != 0;
     }
 
-    public static final Creator<Note> CREATOR = new Creator<Note>() {
+    public static final Creator<Task> CREATOR = new Creator<Task>() {
         @Override
-        public Note createFromParcel(Parcel in) {
-            return new Note(in);
+        public Task createFromParcel(Parcel in) {
+            return new Task(in);
         }
 
         @Override
-        public Note[] newArray(int size) {
-            return new Note[size];
+        public Task[] newArray(int size) {
+            return new Task[size];
         }
     };
 
@@ -53,11 +53,11 @@ public class Note implements Parcelable {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Note note = (Note) o;
-        return id == note.id &&
-                time == note.time &&
-                active == note.active &&
-                Objects.equals(text, note.text);
+        Task task = (Task) o;
+        return id == task.id &&
+                time == task.time &&
+                active == task.active &&
+                Objects.equals(text, task.text);
     }
 
     @Override
