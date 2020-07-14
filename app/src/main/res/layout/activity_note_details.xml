@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
@@ -16,22 +16,29 @@
         android:id="@+id/text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:gravity="top"
         android:hint="@string/note_text"
         android:minHeight="150dp"
-        android:gravity="top"
         android:padding="16dp" />
 
-    <CheckBox
-        android:id="@+id/checkBox"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="CheckBox" />
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
 
-    <Button
-        android:id="@+id/button"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Button"
-        android:onClick="setTime" />
+        <Button
+            android:id="@+id/button"
+            android:layout_width="244dp"
+            android:layout_height="wrap_content"
+            android:onClick="setTime"
+            android:text="@string/notificationButton" />
+
+        <Button
+            android:id="@+id/button2"
+            android:layout_width="40dp"
+            android:layout_height="wrap_content"
+            android:onClick="deleteTime"
+            android:text="X" />
+    </LinearLayout>
 
 </LinearLayout>

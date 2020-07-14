@@ -2,36 +2,29 @@ package com.example.androidsummerproject20.activityToDoList.noteDetail;
 
 import android.app.Activity;
 import android.app.AlarmManager;
-import android.app.DatePickerDialog;
 import android.app.Notification;
-import android.app.NotificationManager;
 import android.app.PendingIntent;
-import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
-import android.os.SystemClock;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.CheckBox;
-import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.TimePicker;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.core.app.NotificationCompat;
 
 import com.example.androidsummerproject20.R;
-import com.example.androidsummerproject20.activityToDoList.ToDoListActivity;
+import com.example.androidsummerproject20.activityToDoList.noteDetail.notification.NotificationTimePicker;
+import com.example.androidsummerproject20.activityToDoList.noteDetail.notification.NotificationPublisher;
 import com.example.androidsummerproject20.data.App;
-import com.example.androidsummerproject20.main.MainActivity;
 import com.example.androidsummerproject20.notes.Note;
 
 import java.util.Calendar;
@@ -47,9 +40,11 @@ public class NoteDetailsActivity extends AppCompatActivity {
     //текстовое поле для ввода
     private EditText editText;
 
-    private CheckBox checkBox;
-
     private Calendar notificationTime = Calendar.getInstance();
+
+    private boolean notificationIsChecked = false;
+
+    private Button button;
 
     //метод для запуска активити
     public static void start(Activity caller, Note note) {
@@ -81,11 +76,7 @@ public class NoteDetailsActivity extends AppCompatActivity {
 
         editText = findViewById(R.id.text);
 
-        checkBox = findViewById(R.id.checkBox);
-        checkBox.setText("Установить напоминание");
-
-        Button button = findViewById(R.id.button);
-        button.setText("Выбрать дату");
+        button = findViewById(R.id.button);
 
         //getIntent возвращает intent созданный при запуске активити
         //если заметка есть,то есть есть intent
@@ -138,15 +129,12 @@ public class NoteDetailsActivity extends AppCompatActivity {
                     //поэтому обратно передавать ничего не нужно
                     //все изменения покажутся на экране
 
-                    if (checkBox.isChecked()) {
-
+                    if (notificationIsChecked) {
                         long time = notificationTime.getTimeInMillis();
 
-                        Toast toast = Toast.makeText(getApplicationContext(),
+                        Toast.makeText(getApplicationContext(),
                                 "Напоминане установлено на: \n" + new Date(time).toString(),
-                                Toast.LENGTH_SHORT);
-                        toast.setGravity(Gravity.CENTER, 0, 0);
-                        toast.show();
+                                Toast.LENGTH_SHORT).show();
 
                         scheduleNotification(getNotification(
                                 note.text.substring(0, Math.min(note.text.length(), 40))), time);
@@ -160,32 +148,16 @@ public class NoteDetailsActivity extends AppCompatActivity {
     }
 
     public void setTime(View v) {
-        TimePickerDialog.OnTimeSetListener time = new TimePickerDialog.OnTimeSetListener() {
-            public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-                notificationTime.set(Calendar.HOUR_OF_DAY, hourOfDay);
-                notificationTime.set(Calendar.MINUTE, minute);
-                notificationTime.set(Calendar.SECOND, 0);
-            }
-        };
+        NotificationTimePicker notificationTimePicker = new NotificationTimePicker(this, notificationTime);
+        notificationTimePicker.showDialogWindow();
 
-        new TimePickerDialog(this, time,
-                notificationTime.get(Calendar.HOUR_OF_DAY),
-                notificationTime.get(Calendar.MINUTE), true)
-                .show();
+        button.setTextColor(Color.parseColor("#007000"));
+        notificationIsChecked = true;
+    }
 
-        DatePickerDialog.OnDateSetListener date =new DatePickerDialog.OnDateSetListener() {
-            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                notificationTime.set(Calendar.YEAR, year);
-                notificationTime.set(Calendar.MONTH, monthOfYear);
-                notificationTime.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-            }
-        };
-
-        new DatePickerDialog(this, date,
-                notificationTime.get(Calendar.YEAR),
-                notificationTime.get(Calendar.MONTH),
-                notificationTime.get(Calendar.DAY_OF_MONTH))
-                .show();
+    public void deleteTime(View view) {
+        button.setTextColor(Color.parseColor("#000000"));
+        notificationIsChecked = false;
     }
 
     private void scheduleNotification(Notification notification, long delay) {

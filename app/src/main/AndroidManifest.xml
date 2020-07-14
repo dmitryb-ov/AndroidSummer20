@@ -21,6 +21,6 @@
         <activity
             android:name=".activityToDoList.noteDetail.NoteDetailsActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-        <receiver android:name=".activityToDoList.noteDetail.NotificationPublisher" />
+        <receiver android:name=".activityToDoList.noteDetail.notification.NotificationPublisher" />
     </application>
 </manifest>

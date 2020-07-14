@@ -6,4 +6,6 @@
     <string name="note_details_title">Заметка</string>
     <string name="save">Сохранить</string>
     <string name="completed">Выполнение</string>
+    <string name="notificationButton">Установить напоминание</string>
+
 </resources>
