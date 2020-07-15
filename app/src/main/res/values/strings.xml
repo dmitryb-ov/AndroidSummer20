@@ -2,8 +2,13 @@
     <string name="app_name">Memorandum</string>
     <string name="action_settings">Settings</string>
 
-    <string name="note_text">Введите текст</string>
-    <string name="note_details_title">Задача</string>
-    <string name="save">Сохранить</string>
-    <string name="completed">Выполнение</string>
+    <string name="task_text">Write task</string>
+    <string name="note_text">Write note</string>
+    <string name="note_details_title">Note</string>
+    <string name="trash_title">Trash</string>
+    <string name="notes_title">Notes</string>
+    <string name="tasks_title">ToDO List</string>
+    <string name="task_details_title">Task</string>
+    <string name="save">Save</string>
+    <string name="completed">Completed</string>
 </resources>

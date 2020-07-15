@@ -21,10 +21,10 @@ import com.example.androidsummerproject20.models.Note;
 
 import java.util.ArrayList;
 
-public class NotesTrashActivity extends AppCompatActivity implements OnItemClickListener {
+public class NotesTrashActivity extends AppCompatActivity implements OnNoteClickListener {
     private RecyclerView recyclerView;
     private ArrayList<Note> notes;
-    private NoteDate.NotesAdapter adapter;
+    private NotesAdapter adapter;
     private NotesDao dao;
     private Toolbar toolbar;
 
@@ -32,6 +32,7 @@ public class NotesTrashActivity extends AppCompatActivity implements OnItemClick
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_notes_trash);
+        setTitle(R.string.trash_title);
         toolbar = findViewById(R.id.tool_bar);
         setSupportActionBar(toolbar);
         recyclerView = (RecyclerView) findViewById(R.id.notes_list);
@@ -42,7 +43,7 @@ public class NotesTrashActivity extends AppCompatActivity implements OnItemClick
     private void loadNotes() {
         this.notes = new ArrayList<>();
         this.notes.addAll(dao.getNotes(true));
-        adapter = new NoteDate.NotesAdapter(notes, this);
+        adapter = new NotesAdapter(notes, this);
         this.adapter.setItemClickListener(this);
         recyclerView.setAdapter(adapter);
     }
@@ -82,7 +83,7 @@ public class NotesTrashActivity extends AppCompatActivity implements OnItemClick
     @Override
     public void onClick(final Note note) {
         new AlertDialog.Builder(this).setTitle("Trashed note").
-                setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                setNeutralButton("Cancel", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         dialogInterface.dismiss();
@@ -96,10 +97,11 @@ public class NotesTrashActivity extends AppCompatActivity implements OnItemClick
                         loadNotes();
                     }
                 })
-                .setPositiveButton("Restore", new DialogInterface.OnClickListener() {
+                .setNegativeButton("Restore", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         note.setInTrash(false);
+                        dao.updateNote(note);
                         Toast.makeText(NotesTrashActivity.this, "Restored", Toast.LENGTH_SHORT).show();
 
                         loadNotes();

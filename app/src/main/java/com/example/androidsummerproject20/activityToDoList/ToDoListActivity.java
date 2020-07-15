@@ -33,6 +33,7 @@ public class ToDoListActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_todolist);
+        setTitle(R.string.tasks_title);
         toolbar = findViewById(R.id.tool_bar);
         setSupportActionBar(toolbar);
         recyclerView = findViewById(R.id.list);
@@ -77,12 +78,13 @@ public class ToDoListActivity extends AppCompatActivity {
                 startActivity(new Intent(this, MainActivity.class));
                 Toast.makeText(this, "Notes", Toast.LENGTH_SHORT).show();
                 return true;
-
             case R.id.todo:
                 Toast.makeText(this, "ToDoList", Toast.LENGTH_SHORT).show();
                 return true;
             case R.id.trash:
                 startActivity(new Intent(this, NotesTrashActivity.class));
+                Toast.makeText(this, "Trash", Toast.LENGTH_SHORT).show();
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
 

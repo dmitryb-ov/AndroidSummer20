@@ -23,10 +23,10 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity implements OnItemClickListener {
+public class MainActivity extends AppCompatActivity implements OnNoteClickListener {
     private RecyclerView recyclerView;
     private ArrayList<Note> notes;
-    private NoteDate.NotesAdapter adapter;
+    private NotesAdapter adapter;
     private NotesDao dao;
     private Toolbar toolbar;
 
@@ -37,6 +37,7 @@ public class MainActivity extends AppCompatActivity implements OnItemClickListen
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        setTitle(R.string.notes_title);
         toolbar = findViewById(R.id.tool_bar);
         setSupportActionBar(toolbar);
         recyclerView = (RecyclerView) findViewById(R.id.notes_list);
@@ -55,7 +56,7 @@ public class MainActivity extends AppCompatActivity implements OnItemClickListen
     private void loadNotes() {
         this.notes = new ArrayList<>();
         this.notes.addAll(dao.getNotes(false));
-        adapter = new NoteDate.NotesAdapter(notes, this);
+        adapter = new NotesAdapter(notes, this);
         this.adapter.setItemClickListener(this);
         recyclerView.setAdapter(adapter);
     }
@@ -81,7 +82,7 @@ public class MainActivity extends AppCompatActivity implements OnItemClickListen
     public void onLongClick(final Note note) {
         new AlertDialog.Builder(this).
                 setTitle("Delete").
-                setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                setNeutralButton("Cancel", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         dialogInterface.dismiss();
@@ -91,12 +92,13 @@ public class MainActivity extends AppCompatActivity implements OnItemClickListen
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         note.setInTrash(true);
+                        dao.updateNote(note);
+                        loadNotes();
                         Toast.makeText(MainActivity.this,
                                 "Removed in trash", Toast.LENGTH_SHORT).show();
-                        loadNotes();
                     }
                 })
-                .setPositiveButton("Delete", new DialogInterface.OnClickListener() {
+                .setNegativeButton("Delete", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         dao.deleteNote(note);
@@ -118,7 +120,6 @@ public class MainActivity extends AppCompatActivity implements OnItemClickListen
             case R.id.note:
                 Toast.makeText(this, "Notes", Toast.LENGTH_SHORT).show();
                 return true;
-
             case R.id.todo:
                 startActivity(new Intent(this, ToDoListActivity.class));
                 Toast.makeText(this, "ToDoList", Toast.LENGTH_SHORT).show();

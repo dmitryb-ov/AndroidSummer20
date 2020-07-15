@@ -23,12 +23,13 @@ public interface NotesDao {
     @Update
     void updateNote(Note note);
 
-    @Query("SELECT * from notes WHERE inTrash LIKE :inTrash")
-    List<Note> getNotes(boolean inTrash);
+    @Query("SELECT * from notes WHERE inTrash LIKE :trash")
+    List<Note> getNotes(boolean trash);
 
     @Query("SELECT * from notes WHERE id LIKE :noteId")
     Note getNoteById(int noteId);
 
     @Query("DELETE FROM notes WHERE id LIKE :noteId")
     void deleteNoteById(int noteId);
+
 }

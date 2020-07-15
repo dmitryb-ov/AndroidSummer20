@@ -72,7 +72,7 @@ public class TaskDetailsActivity extends AppCompatActivity {
         getSupportActionBar().setHomeButtonEnabled(true);
 
         //Текст заголовка, который содержится в values/strings
-        setTitle(getString(R.string.note_details_title));
+        setTitle(getString(R.string.task_details_title));
 
         editText = findViewById(R.id.text);
 
@@ -100,7 +100,7 @@ public class TaskDetailsActivity extends AppCompatActivity {
     //создание меню
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_details, menu);
+        getMenuInflater().inflate(R.menu.edit_menu_toolbar, menu);
         return super.onCreateOptionsMenu(menu);
     }
 
