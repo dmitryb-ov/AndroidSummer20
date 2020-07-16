@@ -20,7 +20,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
-            android:id="@+id/note_text"
+            android:id="@+id/note_task"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:maxHeight="72dp"
@@ -30,13 +30,13 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/note_time"
+            android:id="@+id/note_date"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="12.07.2020"
             android:textSize="10sp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/note_text"
+            app:layout_constraintTop_toBottomOf="@+id/note_task"
             app:layout_constraintVertical_bias="0.0"
             tools:layout_editor_absoluteX="0dp" />
 

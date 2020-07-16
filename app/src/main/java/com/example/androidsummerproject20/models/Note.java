@@ -15,12 +15,16 @@ public class Note {
     @ColumnInfo(name = "date")
     private String noteDate;
 
+    @ColumnInfo(name = "inTrash")
+    private boolean inTrash;
+
     public Note() {
     }
 
-    public Note(String noteText, String noteDate) {
+    public Note(String noteText, String noteDate, boolean inTrash) {
         this.noteText = noteText;
         this.noteDate = noteDate;
+        this.inTrash = inTrash;
     }
 
     public String getNoteText() {
@@ -45,5 +49,13 @@ public class Note {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public boolean isInTrash() {
+        return inTrash;
+    }
+
+    public void setInTrash(boolean inTrash) {
+        this.inTrash = inTrash;
     }
 }

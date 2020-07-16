@@ -1,4 +1,4 @@
-package com.example.androidsummerproject20.activityToDoList.taskDetail;
+package com.example.androidsummerproject20.activityToDoList.noteDetail;
 
 import android.app.Notification;
 import android.app.NotificationManager;

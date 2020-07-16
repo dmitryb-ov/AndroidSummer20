@@ -1,6 +1,7 @@
 package com.example.androidsummerproject20.activityToDoList;
 
 import android.app.Activity;
+import android.content.DialogInterface;
 import android.graphics.Paint;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,11 +11,12 @@ import android.widget.CompoundButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.SortedList;
 
 import com.example.androidsummerproject20.R;
-import com.example.androidsummerproject20.activityToDoList.taskDetail.TaskDetailsActivity;
+import com.example.androidsummerproject20.activityToDoList.noteDetail.NoteDetailsActivity;
 import com.example.androidsummerproject20.data.App;
 import com.example.androidsummerproject20.models.Task;
 
@@ -24,7 +26,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.NoteViewHolder
 
     //SortedList(работает на основе рефлексии)
     //предназначен для того, чтобы автоматически определять изменения внутри себя
-    //и выдавать соответствующие команды, что в нём обновилось на RecicleView, который
+    //и выдавать соответствующие команды, что в нём обновилось на RecycleView, который
     //в свою очередь будем понимать какие именно элементы изменились и как их теперь
     //отображать
     private SortedList<Task> sortedList;
@@ -94,7 +96,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.NoteViewHolder
     @Override
     public NoteViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         return new NoteViewHolder(
-                LayoutInflater.from(parent.getContext()).inflate(R.layout.item_note_list, parent, false));
+                LayoutInflater.from(parent.getContext()).inflate(R.layout.item_todo_list, parent, false));
     }
 
     //привязка к конкретной заметки ViewHolder'a
@@ -139,26 +141,47 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.NoteViewHolder
         public NoteViewHolder(@NonNull final View itemView) {
             super(itemView);
 
-            noteText = itemView.findViewById(R.id.note_text);
+            noteText = itemView.findViewById(R.id.note_task);
             completed = itemView.findViewById(R.id.completed);
-            delete = itemView.findViewById(R.id.delete);
+//            delete = itemView.findViewById(R.id.delete);
 
             //обработчик для всей view, по нему будем вызывать редактирование заметки
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    TaskDetailsActivity.start((Activity) itemView.getContext(), task);
+                    NoteDetailsActivity.start((Activity) itemView.getContext(), task);
                 }
             });
 
             //обработчик кнопки "удалить" заметку
-            delete.setOnClickListener(new View.OnClickListener() {
+//            delete.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View view) {
+//                    //удаляем заметку в базе данных
+//                    App.getInstance().getTaskDao().delete(task);
+//                }
+//            });
+            itemView.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
-                public void onClick(View view) {
-                    //удаляем заметку в базе данных
-                    App.getInstance().getTaskDao().delete(task);
+                public boolean onLongClick(View view) {
+                    new AlertDialog.Builder(itemView.getContext())
+                            .setTitle("Delete")
+                            .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+                                    dialogInterface.dismiss();
+                                }
+                            })
+                            .setPositiveButton("Delete", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+                                    App.getInstance().getTaskDao().delete(task);
+                                }
+                            }).create().show();
+                    return true;
                 }
             });
+
 
             //обработчик кнопки "завершено"
             completed.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {

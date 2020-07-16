@@ -1,23 +1,19 @@
-package com.example.androidsummerproject20.activityToDoList.taskDetail;
+package com.example.androidsummerproject20.activityToDoList.noteDetail;
 
 import android.app.Activity;
 import android.app.AlarmManager;
-import android.app.DatePickerDialog;
 import android.app.Notification;
 import android.app.PendingIntent;
-import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
-import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.TimePicker;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -26,14 +22,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import com.example.androidsummerproject20.R;
+import com.example.androidsummerproject20.activityToDoList.noteDetail.notofocation.NotificationTimePicker;
 import com.example.androidsummerproject20.data.App;
 import com.example.androidsummerproject20.models.Task;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.Calendar;
 import java.util.Date;
 
-public class TaskDetailsActivity extends AppCompatActivity {
+public class NoteDetailsActivity extends AppCompatActivity {
 
     private static final String EXTRA_NOTE = "NoteDetailsActivity.EXTRA_NOTE";
 
@@ -47,9 +43,13 @@ public class TaskDetailsActivity extends AppCompatActivity {
 
     private Calendar notificationTime = Calendar.getInstance();
 
+    private boolean notificationIsChecked = false;
+
+    private Button button;
+
     //метод для запуска активити
     public static void start(Activity caller, Task task) {
-        Intent intent = new Intent(caller, TaskDetailsActivity.class);
+        Intent intent = new Intent(caller, NoteDetailsActivity.class);
         //если заметка существует
         if (task != null) {
             intent.putExtra(EXTRA_NOTE, task);
@@ -66,22 +66,18 @@ public class TaskDetailsActivity extends AppCompatActivity {
         //далее с этим активити можно уже работать
         setContentView(R.layout.activity_note_details);
 
-        Toolbar toolbar = findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.tool_bar);
         setSupportActionBar(toolbar);
         //добавляем кнопку назад
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
 
         //Текст заголовка, который содержится в values/strings
-        setTitle(getString(R.string.note_details_title));
+        setTitle(getString(R.string.task_details_title));
 
         editText = findViewById(R.id.text);
 
-        checkBox = findViewById(R.id.checkBox);
-        checkBox.setText("Установить напоминание");
-
-        Button button = findViewById(R.id.button);
-        button.setText("Выбрать дату");
+        button = findViewById(R.id.button);
 
         //getIntent возвращает intent созданный при запуске активити
         //если заметка есть,то есть есть intent
@@ -94,31 +90,13 @@ public class TaskDetailsActivity extends AppCompatActivity {
             //если заметки нет, то создаём новую заметку
             task = new Task();
         }
-
-        BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
-        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                switch (item.getItemId()) {
-                    case R.id.note:
-
-                        break;
-                    case R.id.todo:
-                        break;
-                    case R.id.trash:
-                        Toast.makeText(TaskDetailsActivity.this, "Trash", Toast.LENGTH_SHORT).show();
-                        break;
-                }
-                return true;
-            }
-        });
     }
 
     //для кнопки сохранения в меню
     //создание меню
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_details, menu);
+        getMenuInflater().inflate(R.menu.edit_menu_toolbar, menu);
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -151,15 +129,13 @@ public class TaskDetailsActivity extends AppCompatActivity {
                     //происходит обновление базы данных, и автоматически livedata всё изменит,
                     //поэтому обратно передавать ничего не нужно
                     //все изменения покажутся на экране
-                    if (checkBox.isChecked()) {
+                    if (notificationIsChecked) {
 
                         long time = notificationTime.getTimeInMillis();
 
-                        Toast toast = Toast.makeText(getApplicationContext(),
+                        Toast.makeText(getApplicationContext(),
                                 "Напоминане установлено на: \n" + new Date(time).toString(),
-                                Toast.LENGTH_SHORT);
-                        toast.setGravity(Gravity.CENTER, 0, 0);
-                        toast.show();
+                                Toast.LENGTH_SHORT).show();
 
                         scheduleNotification(getNotification(
                                 task.text.substring(0, Math.min(task.text.length(), 40))), time);
@@ -172,32 +148,16 @@ public class TaskDetailsActivity extends AppCompatActivity {
     }
 
     public void setTime(View v) {
-        TimePickerDialog.OnTimeSetListener time = new TimePickerDialog.OnTimeSetListener() {
-            public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-                notificationTime.set(Calendar.HOUR_OF_DAY, hourOfDay);
-                notificationTime.set(Calendar.MINUTE, minute);
-                notificationTime.set(Calendar.SECOND, 0);
-            }
-        };
+        NotificationTimePicker notificationTimePicker = new NotificationTimePicker(this, notificationTime);
+        notificationTimePicker.showDialogWindow();
 
-        new TimePickerDialog(this, time,
-                notificationTime.get(Calendar.HOUR_OF_DAY),
-                notificationTime.get(Calendar.MINUTE), true)
-                .show();
+        button.setTextColor(Color.parseColor("#007000"));
+        notificationIsChecked = true;
+    }
 
-        DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
-            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                notificationTime.set(Calendar.YEAR, year);
-                notificationTime.set(Calendar.MONTH, monthOfYear);
-                notificationTime.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-            }
-        };
-
-        new DatePickerDialog(this, date,
-                notificationTime.get(Calendar.YEAR),
-                notificationTime.get(Calendar.MONTH),
-                notificationTime.get(Calendar.DAY_OF_MONTH))
-                .show();
+    public void deleteTime(View view) {
+        button.setTextColor(Color.parseColor("#000000"));
+        notificationIsChecked = false;
     }
 
     private void scheduleNotification(Notification notification, long delay) {

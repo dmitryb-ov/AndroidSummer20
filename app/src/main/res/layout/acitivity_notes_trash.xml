@@ -4,23 +4,20 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".note.EditNoteActivity">
+    tools:context=".note.NotesTrashActivity">
 
     <include
         android:id="@+id/tool_bar"
         layout="@layout/tool_bar" />
 
-    <EditText
-        android:id="@+id/input_note"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/notes_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="8dp"
-        android:hint="@string/task_text"
-        android:background="@null"
-        android:gravity="top"
-        android:inputType="textMultiLine"
+        android:scrollbars="vertical"
         android:layout_marginTop="?attr/actionBarSize"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tool_bar" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

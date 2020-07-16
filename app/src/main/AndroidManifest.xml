@@ -3,13 +3,13 @@
     package="com.example.androidsummerproject20">
 
     <application
+        android:name=".data.App"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:name=".data.App"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme.NoActionBar">
         <activity android:name=".note.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -19,11 +19,12 @@
         </activity>
         <activity android:name=".activityToDoList.ToDoListActivity" />
         <activity android:name=".note.EditNoteActivity" />
+        <activity android:name=".note.NotesTrashActivity" />
         <activity
-            android:name=".activityToDoList.taskDetail.TaskDetailsActivity"
+            android:name=".activityToDoList.noteDetail.NoteDetailsActivity"
             android:theme="@style/AppTheme.NoActionBar" />
 
-        <receiver android:name=".activityToDoList.taskDetail.NotificationPublisher" />
+        <receiver android:name=".activityToDoList.noteDetail.NotificationPublisher" />
     </application>
 
 </manifest>
