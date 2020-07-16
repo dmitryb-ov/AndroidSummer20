@@ -16,7 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.SortedList;
 
 import com.example.androidsummerproject20.R;
-import com.example.androidsummerproject20.activityToDoList.taskDetail.TaskDetailsActivity;
+import com.example.androidsummerproject20.activityToDoList.noteDetail.NoteDetailsActivity;
 import com.example.androidsummerproject20.data.App;
 import com.example.androidsummerproject20.models.Task;
 
@@ -143,16 +143,24 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.NoteViewHolder
 
             noteText = itemView.findViewById(R.id.note_task);
             completed = itemView.findViewById(R.id.completed);
-            //delete = itemView.findViewById(R.id.delete);
+//            delete = itemView.findViewById(R.id.delete);
 
             //обработчик для всей view, по нему будем вызывать редактирование заметки
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    TaskDetailsActivity.start((Activity) itemView.getContext(), task);
+                    NoteDetailsActivity.start((Activity) itemView.getContext(), task);
                 }
             });
 
+            //обработчик кнопки "удалить" заметку
+//            delete.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View view) {
+//                    //удаляем заметку в базе данных
+//                    App.getInstance().getTaskDao().delete(task);
+//                }
+//            });
             itemView.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
                 public boolean onLongClick(View view) {

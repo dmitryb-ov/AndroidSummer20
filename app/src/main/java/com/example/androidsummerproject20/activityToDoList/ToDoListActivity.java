@@ -16,7 +16,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.androidsummerproject20.R;
-import com.example.androidsummerproject20.activityToDoList.taskDetail.TaskDetailsActivity;
+import com.example.androidsummerproject20.activityToDoList.noteDetail.NoteDetailsActivity;
 import com.example.androidsummerproject20.models.Task;
 import com.example.androidsummerproject20.note.MainActivity;
 import com.example.androidsummerproject20.note.NotesTrashActivity;
@@ -26,6 +26,7 @@ import java.util.List;
 
 //класс запуска основго активити для "списка дел"
 public class ToDoListActivity extends AppCompatActivity {
+
     private Toolbar toolbar;
     private RecyclerView recyclerView;
 
@@ -33,6 +34,7 @@ public class ToDoListActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_todolist);
+
         setTitle(R.string.tasks_title);
         toolbar = findViewById(R.id.tool_bar);
         setSupportActionBar(toolbar);
@@ -49,7 +51,7 @@ public class ToDoListActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 //запуск активи через метод, который мы уже создали заранее(для запуска активити)
-                TaskDetailsActivity.start(ToDoListActivity.this, null);
+                NoteDetailsActivity.start(ToDoListActivity.this, null);
             }
         });
 
@@ -78,6 +80,7 @@ public class ToDoListActivity extends AppCompatActivity {
                 startActivity(new Intent(this, MainActivity.class));
                 Toast.makeText(this, "Notes", Toast.LENGTH_SHORT).show();
                 return true;
+
             case R.id.todo:
                 Toast.makeText(this, "ToDoList", Toast.LENGTH_SHORT).show();
                 return true;

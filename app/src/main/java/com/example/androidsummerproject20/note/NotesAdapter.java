@@ -68,4 +68,3 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesHolder> {
         this.itemClickListener = itemClickListener;
     }
 }
-

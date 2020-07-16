@@ -11,4 +11,6 @@ public class NoteDate {
         DateFormat format = new SimpleDateFormat("EEE, dd MMM yyyy 'at' hh:mm aaa", Locale.US);
         return format.format(new Date());
     }
+
+
 }

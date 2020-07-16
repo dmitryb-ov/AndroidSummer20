@@ -24,8 +24,8 @@ public class EditNoteActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_edit_note);
         setTitle(R.string.note_details_title);
+        setContentView(R.layout.activity_edit_note);
         dao = NotesDB.getInstance(this).notesDao();
         inputNote = findViewById(R.id.input_note);
         dao = NotesDB.getInstance(this).notesDao();
@@ -44,7 +44,9 @@ public class EditNoteActivity extends AppCompatActivity {
             int id = getIntent().getExtras().getInt("Note", 0);
             currentNote = dao.getNoteById(id);
             inputNote.setText(currentNote.getNoteText());
-        } else inputNote.setFocusable(true);
+        } else {
+            inputNote.setFocusable(true);
+        }
     }
 
     private void onSaveNote() {
@@ -64,6 +66,12 @@ public class EditNoteActivity extends AppCompatActivity {
         }
     }
 
+    //protected static void start(Activity activity, Note note) {
+    //  Intent intent = new Intent(activity, EditNoteActivity.class);
+    //intent.putExtra("Note", note.getNoteText());
+    //intent.putExtra("Date", note.getNoteDate());
+    //activity.startActivity(intent);
+    //}
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.edit_menu_toolbar, menu);

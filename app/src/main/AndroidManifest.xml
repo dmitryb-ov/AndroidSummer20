@@ -10,7 +10,6 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar">
-        <activity android:name=".note.NotesTrashActivity"></activity>
         <activity android:name=".note.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -20,11 +19,12 @@
         </activity>
         <activity android:name=".activityToDoList.ToDoListActivity" />
         <activity android:name=".note.EditNoteActivity" />
+        <activity android:name=".note.NotesTrashActivity" />
         <activity
-            android:name=".activityToDoList.taskDetail.TaskDetailsActivity"
+            android:name=".activityToDoList.noteDetail.NoteDetailsActivity"
             android:theme="@style/AppTheme.NoActionBar" />
 
-        <receiver android:name=".activityToDoList.taskDetail.NotificationPublisher" />
+        <receiver android:name=".activityToDoList.noteDetail.NotificationPublisher" />
     </application>
 
 </manifest>

@@ -31,7 +31,7 @@ public class NotesTrashActivity extends AppCompatActivity implements OnNoteClick
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_notes_trash);
+        setContentView(R.layout.acitivity_notes_trash);
         setTitle(R.string.trash_title);
         toolbar = findViewById(R.id.tool_bar);
         setSupportActionBar(toolbar);
