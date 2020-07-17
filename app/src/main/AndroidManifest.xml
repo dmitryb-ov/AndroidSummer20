@@ -5,11 +5,23 @@
     <application
         android:name=".data.App"
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/ic_launcher_logo"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@mipmap/ic_launcher_logo_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar">
+        <receiver
+            android:name=".note.Widget"
+            android:label="@string/widget_name"
+            android:icon="@android:drawable/star_big_on">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE"></action>
+            </intent-filter>
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/widget_metadata"></meta-data>
+        </receiver>
+
         <activity android:name=".note.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -20,6 +32,11 @@
         <activity android:name=".activityToDoList.ToDoListActivity" />
         <activity android:name=".note.EditNoteActivity" />
         <activity android:name=".note.NotesTrashActivity" />
+        <activity android:name=".note.ConfigActivity">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE"></action>
+            </intent-filter>
+        </activity>
         <activity
             android:name=".activityToDoList.noteDetail.NoteDetailsActivity"
             android:theme="@style/AppTheme.NoActionBar" />

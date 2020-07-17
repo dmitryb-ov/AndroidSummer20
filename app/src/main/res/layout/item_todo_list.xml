@@ -4,9 +4,12 @@
     android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_marginTop="8dp"
+    android:dividerPadding="5dp"
     android:paddingLeft="16dp"
     android:paddingRight="16dp"
-    android:gravity="center">
+    android:gravity="center"
+    android:background="@drawable/notes_background">
 
     <TextView
         android:id="@+id/note_task"
@@ -15,7 +18,9 @@
         android:layout_weight="1"
         android:minHeight="64dp"
         android:gravity="center_vertical"
-        tools:text="some text for testing" />
+        tools:text="some text for testing"
+        android:textColor="@color/primaryText"
+        android:textSize="20sp" />
 
     <CheckBox
         android:id="@+id/completed"
