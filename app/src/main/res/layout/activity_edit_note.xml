@@ -16,6 +16,8 @@
         android:layout_height="match_parent"
         android:padding="8dp"
         android:hint="@string/task_text"
+        android:textColor="@color/primaryText"
+        android:textSize="20sp"
         android:background="@color/background"
         android:gravity="top"
         android:inputType="textMultiLine"

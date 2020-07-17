@@ -14,6 +14,8 @@
         android:layout_height="wrap_content"
         android:background="@color/background"
         android:gravity="top"
+        android:textColor="@color/primaryText"
+        android:textSize="20sp"
         android:hint="@string/task_text"
         android:minHeight="150dp"
         android:padding="16dp" />

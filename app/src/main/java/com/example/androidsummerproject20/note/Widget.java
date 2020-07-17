@@ -12,8 +12,10 @@ import android.widget.TextView;
 import com.example.androidsummerproject20.R;
 import com.example.androidsummerproject20.data.NotesDB;
 import com.example.androidsummerproject20.data.NotesDao;
+import com.example.androidsummerproject20.models.Note;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.Random;
 
 public class Widget extends AppWidgetProvider {
@@ -37,9 +39,10 @@ public class Widget extends AppWidgetProvider {
         Random random = new Random();
         int notesCount = dao.getCountNotes();
         if (notesCount != 0) {
-            int randVal = getRandVal(dao);
+            List<Note> noteList = dao.getNotes(false);
+            int randVal = getRandVal(noteList.size());
             RemoteViews remoteViews = new RemoteViews(context.getPackageName(), R.layout.widget);
-            remoteViews.setTextViewText(R.id.tv, dao.getNoteById(randVal).getNoteText());
+            remoteViews.setTextViewText(R.id.tv, noteList.get(randVal).getNoteText());
             for (int appWidgetId : appWidgetIds) {
                 appWidgetManager.updateAppWidget(appWidgetId, remoteViews);
             }
@@ -51,13 +54,13 @@ public class Widget extends AppWidgetProvider {
         }
     }
 
-    private int getRandVal(NotesDao dao) {
+    private int getRandVal(int size) {
         Random random = new Random();
-        int randVal = random.nextInt(dao.getCountNotes());
+        int randVal = random.nextInt(size);
         if (randVal != 0) {
             return randVal;
         } else {
-            return getRandVal(dao);
+            return getRandVal(size);
         }
     }
 
