@@ -11,5 +11,5 @@
     <string name="task_details_title">Task</string>
     <string name="save">Save</string>
     <string name="completed">Completed</string>
-    <string name="notificationButton">Установить напоминание</string>
+    <string name="notificationButton">Set notification</string>
 </resources>

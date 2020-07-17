@@ -17,6 +17,8 @@
         android:padding="8dp"
         android:hint="@string/task_text"
         android:background="@color/background"
+        android:textColor="@color/primaryText"
+        android:textSize="20sp"
         android:gravity="top"
         android:inputType="textMultiLine"
         android:layout_marginTop="?attr/actionBarSize"

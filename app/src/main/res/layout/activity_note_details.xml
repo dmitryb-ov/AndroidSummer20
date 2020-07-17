@@ -13,6 +13,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/background"
+        android:textColor="@color/primaryText"
+        android:textSize="20sp"
         android:gravity="top"
         android:hint="@string/task_text"
         android:minHeight="150dp"

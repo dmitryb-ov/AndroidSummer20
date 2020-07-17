@@ -7,6 +7,7 @@
     android:layout_height="match_parent"
     android:background="@color/background"
     android:scrollbars="vertical"
+    android:padding="8dp"
     android:layout_marginTop="?attr/actionBarSize"
     app:layout_constraintBottom_toBottomOf="parent"
     app:layout_constraintStart_toStartOf="parent"
