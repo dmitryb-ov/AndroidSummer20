@@ -16,7 +16,7 @@
         android:layout_height="match_parent"
         android:padding="8dp"
         android:hint="@string/task_text"
-        android:background="@null"
+        android:background="@color/background"
         android:gravity="top"
         android:inputType="textMultiLine"
         android:layout_marginTop="?attr/actionBarSize"

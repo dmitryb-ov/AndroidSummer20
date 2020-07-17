@@ -12,6 +12,7 @@
         android:id="@+id/text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/background"
         android:gravity="top"
         android:hint="@string/task_text"
         android:minHeight="150dp"
@@ -20,6 +21,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/background"
         android:orientation="horizontal">
 
         <Button
