@@ -64,7 +64,7 @@ public class NoteDetailsActivity extends AppCompatActivity {
 
         //приложение читает файл разметки и создаёт файл по шаблону, данному в скобках
         //далее с этим активити можно уже работать
-        setContentView(R.layout.activity_note_details);
+        setContentView(R.layout.activity_task_details);
 
         Toolbar toolbar = findViewById(R.id.tool_bar);
         setSupportActionBar(toolbar);

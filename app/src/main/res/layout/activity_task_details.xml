@@ -28,7 +28,9 @@
 
         <Button
             android:id="@+id/button"
-            android:layout_width="244dp"
+            android:layout_width="350dp"
+            android:layout_marginLeft="5dp"
+            android:background="@drawable/button_notif_background"
             android:layout_height="wrap_content"
             android:onClick="setTime"
             android:text="@string/notificationButton" />
@@ -36,6 +38,8 @@
         <Button
             android:id="@+id/button2"
             android:layout_width="40dp"
+            android:layout_marginLeft="8dp"
+            android:background="@drawable/delete_notif_button_back"
             android:layout_height="wrap_content"
             android:onClick="deleteTime"
             android:text="X" />
